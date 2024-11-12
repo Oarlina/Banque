@@ -1,22 +1,26 @@
-<h1>POO Banque:</h1>
+<h1>Exercice banque:</h1>
 
 <?php
-// Pour automatiquement chargé les classes
+
 spl_autoload_register(function ($class_name) {
-    require 'classes/'. $class_name . '.php';
+    require 'classes/'.$class_name . '.php';
 });
 
-$maxime = new Titulaire ("Maxime", "SMITH","05-06-2000","STRASBOURG");
-$LA = new Compte ("Livret A","4566.95","€",$maxime); // déclaration du livret A
-$CC = new Compte ("Compte courant","46.95","€",$maxime); // déclaration du compte courant 
+$maxime = new Titulaire ("Maxime", "BOB", "01-01-2000", "MULHOUSE");
+$LA = new Compte ("Livret A", "14.60", "€", $maxime);
+$Cc = new Compte ("Compte courant", "500.0", "€", $maxime);
 
-// echo $LA->getInfos();
-// echo $CC->getInfos();
-echo $maxime-> infoTitulaire();
-echo "<br>";
+//Afficher les informations de bases
+echo "<b>".$maxime->__toString()."</b><br>".$LA->__toString()."<br>".$Cc->__toString()."<br>";
 
-echo $LA->crediter(200.59);
+// Afficher un crédit et le débit
+echo $LA->crediter(5.48);
+echo $Cc->debiter(100);
 
-echo "<br>".$LA->debiter(200.59);
+//Aficher le virement du compte Cc à LA
+echo $Cc->virement($LA,150); 
 
-?>
+// afficher les informations de Maxime puis de ces deux comptes
+echo $maxime->getInfos();
+echo $LA->getInfos();
+echo $Cc->getInfos();

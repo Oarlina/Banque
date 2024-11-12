@@ -1,101 +1,112 @@
 <?php
 
-class Compte 
+class Compte
 {
-    // Déclaration attributs
     private string $libelle;
     private float $solde;
     private string $deviseMonetaire;
-    private Titulaire $titulaire; // lier a l'objet titulaire
-    
-    private $debit;
-    // Créer un connexion à une base de données
-    public function __construct (string $libelle, float $solde, string $deviseMonetaire, Titulaire $titulaire)
+    private string $titulaire;
+    private float $credit;
+    private float $debit;
+    private float $montantVirement;
+
+    public function __construct(string $libelle, float $solde, 
+            string $deviseMonetaire, string $titulaire)
     {
-        $this-> libelle= $libelle;
-        $this-> solde= $solde;
-        $this-> deviseMonetaire= $deviseMonetaire;
-        $this-> titulaire= $titulaire;
+        $this-> libelle = $libelle;
+        $this-> solde = $solde;
+        $this-> deviseMonetaire = $deviseMonetaire;
+        $this-> titulaire = $titulaire;
     }
+    
     // getter et setter de libelle
-    public function getLibelle() : string
+    public function getLibelle(): string
     {
         return $this->libelle;
     }
-    public function setLibelle(string $libelle)
+    public function setLibelle(string $libelle): self
     {
-        $this->libelle=$libelle;
+        $this->libelle = $libelle;
+
         return $this;
-    }
+    } 
     // getter et setter de solde
-    public function getSolde() : float
+    public function getSolde(): float
     {
         return $this->solde;
     }
-    public function setSolde(float $solde)
+    public function setSolde(float $solde): self
     {
-        $this->solde=$solde;
+        $this->solde = $solde;
+
         return $this;
     }
     // getter et setter de deviseMonetaire
-    public function getDeviseMonetaires() : string
+    public function getDeviseMonetaire(): string
     {
-        return $this -> deviseMonetaire;
+        return $this->deviseMonetaire;
     }
-    public function setDeviseMonetaire(string $deviseMonetaire)
+    public function setDeviseMonetaire(string $deviseMonetaire): self
     {
         $this->deviseMonetaire = $deviseMonetaire;
+
         return $this;
     }
     // getter et setter de titulaire
-    public function getTitulaire() : Titulaire
+    public function getTitulaire(): string
     {
         return $this->titulaire;
     }
-    public function setTitulaire(Titulaire $titulaire)
+    public function setTitulaire(string $titulaire): self
     {
-        $this->titulaire=$titulaire;
+        $this->titulaire = $titulaire;
+
         return $this;
     }
 
-
-
-    public function addCompte()
+    public function crediter($credit)
     {
-        $this -> comptes[] = $compte;
-    }
-    public function crediter(float $credit)
-    {
-        $result = $this."<br>Le compte va être créditer de: ".$credit.$this->deviseMonetaire.".<br>Nouveau solde: ";
+        $result = "<h4> Crédit sur $this</h4>";
         $this->solde += $credit;
-        $result .= $this->solde.$this->deviseMonetaire."<br>";
+        $result .= "Solde restant: ".$this->solde.$this->deviseMonetaire."<br>";
         return $result;
     }
-    public function debiter(float $debit)
+
+    public function debiter($debit)
     {
-        $result = $this."<br>Le compte va être débiter de: ". $debit.$this->deviseMonetaire.".<br>Nouveau solde: ";
+        $result = "<h4> Débit sur $this</h4>";
         $this->solde -= $debit;
-        $result .= $this->solde. $this->deviseMonetaire ."<br>";
+        $result .= "Solde restant: ".$this->solde.$this->deviseMonetaire."<br>";
         return $result;
     }
-    public function infoCompte()
+    //faire un virement d'un compte a à un compte b
+    public function virement($compte,$montantVirement)
     {
-        $result= "<h3> Information $this</h3>";
-        foreach ($comptes as $compte)
+        $result = "<h3> Virement de $this->libelle a $compte->libelle :</h3>";
+        if ($this->solde >= $montantVirement)
         {
-            $result .= "<li>".$compte->getInfo()."</li>";
+            $result .= $this->debiter($montantVirement);
+            $result .= $compte->crediter($montantVirement);
+            $result .= "<br>";   
+            return $result;
         }
-        return $result;
+        else 
+        {
+            return $result."Virement pas possible.<br>";
+        }
     }
+    // fonction qui premet d'afficher les informations du compte
     public function getInfos()
     {
-        return $this." ";
+        $result = "<h3> Information du comptes $this:</h3> <ul>";
+        $result .= "<li>".$this->libelle."</li><li>".$this->solde."</li>";
+        $result .= "<li>".$this->deviseMonetaire."</li><li>".$this->titulaire." </li>";
+        $result .= "</ul>";
+        return $result;
     }
 
     public function __toString()
     {
-        return $this->libelle.": ". $this->solde.$this->deviseMonetaire."<br>-----------------";
+        return $this->libelle.": ".$this->solde.$this->deviseMonetaire;
     }
 }
-
-?>
