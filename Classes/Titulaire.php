@@ -7,6 +7,8 @@ class Titulaire
     private DateTime $dateNaissance;
     private string $ville;
     private array $comptes;
+    
+
     public function __construct(string $prenom, string $nom,
             string $dateNaissance, string $ville)
     {
@@ -67,6 +69,11 @@ class Titulaire
         return $this;
     }
 
+
+    public function addCompte(string $compte)
+    {
+        $this -> comptes[] = $compte;
+    }
     // fonction pour afficher les informations du titulaire
     public function getInfos()
     {
@@ -77,6 +84,10 @@ class Titulaire
             $age = $from->diff($to)->y; // calcule l'age du jour j
         $result .= "<li>".$this->dateNaissance->format('d-m-Y')."</li><li>".$age." ans</li><li>";
         $result .= $this->ville."</li>";
+        foreach($this->comptes as $compte)
+        {
+            $result .= "<li>".$compte."</li>";
+        }
         $result .= "</ul>";
         return $result;
     }

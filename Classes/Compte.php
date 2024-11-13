@@ -5,18 +5,19 @@ class Compte
     private string $libelle;
     private float $solde;
     private string $deviseMonetaire;
-    private string $titulaire;
     private float $credit;
     private float $debit;
     private float $montantVirement;
+    private Titulaire $comptes;
 
     public function __construct(string $libelle, float $solde, 
-            string $deviseMonetaire, string $titulaire)
+            string $deviseMonetaire, Titulaire $comptes)
     {
         $this-> libelle = $libelle;
         $this-> solde = $solde;
         $this-> deviseMonetaire = $deviseMonetaire;
-        $this-> titulaire = $titulaire;
+        $this-> comptes = $comptes ;
+        $comptes-> addCompte($this);
     }
     
     // getter et setter de libelle
@@ -52,18 +53,17 @@ class Compte
 
         return $this;
     }
-    // getter et setter de titulaire
-    public function getTitulaire(): string
+    //getter et setter de proprietaire
+    public function getComptes (): Titulaire
     {
-        return $this->titulaire;
+        return $this->comptes ;
     }
-    public function setTitulaire(string $titulaire): self
+    public function setComptes (Titulaire $comptes ): self
     {
-        $this->titulaire = $titulaire;
-
+        $this->comptes  = $comptes ;
         return $this;
     }
-
+    
     public function crediter($credit)
     {
         $result = "<h4> Crédit sur $this</h4>";
@@ -100,13 +100,13 @@ class Compte
     {
         $result = "<h3> Information du comptes $this:</h3> <ul>";
         $result .= "<li>".$this->libelle."</li><li>".$this->solde."</li>";
-        $result .= "<li>".$this->deviseMonetaire."</li><li>".$this->titulaire." </li>";
+        $result .= "<li>".$this->deviseMonetaire."</li>";
         $result .= "</ul>";
         return $result;
     }
-
     public function __toString()
     {
         return $this->libelle.": ".$this->solde.$this->deviseMonetaire;
     }
+
 }

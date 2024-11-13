@@ -7,8 +7,8 @@ spl_autoload_register(function ($class_name) {
 });
 
 $maxime = new Titulaire ("Maxime", "BOB", "01-01-2000", "MULHOUSE");
-$LA = new Compte ("Livret A", "14.60", "€", $maxime);
-$Cc = new Compte ("Compte courant", "500.0", "€", $maxime);
+$LA = new Compte ("Livret A", "14.60", "€", $maxime,$maxime);
+$Cc = new Compte ("Compte courant", "500.0", "€", $maxime,$maxime);
 
 //Afficher les informations de bases
 echo "<b>".$maxime->__toString()."</b><br>".$LA->__toString()."<br>".$Cc->__toString()."<br>";
