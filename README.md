@@ -1,6 +1,6 @@
 ### Exercice de Formation : Gestion d'un Titulaire et de ses Comptes Bancaires
 
-**Description du Projet**
+**Description du Projet**  
 Cet exercice a été réalisé dans le cadre d'une formation en développement web. L'objectif était de gérer la gestion d'un titulaire et de ses comptes bancaires, avec la possibilité de réaliser des virements entre deux comptes.
 
 **Fonctionnalités**
