@@ -1,4 +1,4 @@
-Exercice PHP POO banque:
+PHP POO banque:
 
 J'ai du créer une page qui affiche un les informations d'un compte bancaire et d'un titulaire. 
 Un compte bancaire comporte un libellé, un solde initial, une devise monétaire et un titulaire unique.
